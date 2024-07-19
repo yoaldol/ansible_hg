@@ -1,0 +1,12 @@
+---
+- name: Obtener información del sistema operativo
+  hosts: lezama
+  become: true
+  tasks:
+    - name: Recopilar información del sistema
+      setup:
+        filter: ansible_facts
+
+    - name: Mostrar información del sistema
+      debug:
+        msg: "Hostname: {{ ansible_fqdn }}, Sistema Operativo: {{ ansible_distribution }}, Versión: {{ ansible_distribution_version }}"

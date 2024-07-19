@@ -1,0 +1,24 @@
+---
+- name: Buscar en archivo
+  hosts:
+    stp01.pando.mgmt.sva.antel.com.uy
+    zabbix.pando.mgmt.sva.antel.com.uy
+    restricciones_prod
+    cds_seguimiento_prod
+    cds_portal_prod
+    webexample01.cds.prod.pando.mgmt.sva.antel.com.uy
+    cds_core_prod
+    cds_frontend_prod
+    app01.wilee.prod.pando.mgmt.sva.antel.com.uy
+    app02.wilee.prod.pando.mgmt.sva.antel.com.uy    
+  tasks:
+    - name: Buscar en /etc/hosts
+      become: yes  # This is used to run the command with elevated privileges (sudo)
+      shell: grep '172.19.0.211' /etc/hosts
+      register: grep_result  # Save the output of the command for later use
+      ignore_errors: yes
+
+    - name: Mostrar resultado del grep
+      debug:
+        var: grep_result.stdout_lines
+      when: grep_result.stdout_lines | length > 0

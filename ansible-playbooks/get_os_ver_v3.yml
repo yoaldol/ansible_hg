@@ -1,0 +1,9 @@
+---
+- hosts: all
+  gather_facts: yes
+  tasks:
+  - name: System details
+    debug:
+      msg: "The server Operating system is {{ ansible_distribution }} {{ ansible_distribution_version }}"
+  - name: Write Version
+    local_action: shell echo "{{ inventory_hostname }} , {{ ansible_distribution }} {{ ansible_distribution_version }}" >> ./hostname-os-version-output.csv

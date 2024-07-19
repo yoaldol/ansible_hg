@@ -1,0 +1,29 @@
+---
+- name: Add_user_to_SDA_sudoers
+  hosts:
+    #lezama-bastion
+    #app01.tickantel.test.mgmt.sva.antel.com.uy
+    #api01.nveratv.prep.pando.mgmt.sva.antel.com.uy
+    #api02.nveratv.prep.pando.mgmt.sva.antel.com.uy
+    #app01.eywa.prod.mgmt.sva.antel.com.uy
+    #app02.eywa.prod.mgmt.sva.antel.com.uy
+    #app01.weaver.test.mgmt.sva.antel.com.uy
+    #app02.weaver.test.mgmt.sva.antel.com.uy
+    #webstore_test
+    #app01.dnsfrontend.prep.mgmt.sva.antel.com.uy
+    #app02.dnsfrontend.prep.mgmt.sva.antel.com.uy
+    #ott_test
+  become: true
+  vars_files:
+    - user_list.yml
+
+  tasks:
+  - name: Add user to SDA Alias on sudoers
+    ansible.builtin.lineinfile:
+      path: /etc/sudoers
+      regex: '^User_Alias SDA = (.*)$'
+      line: 'User_Alias SDA = \1 , {{ item }}'
+      backrefs: yes
+    with_items: "{{ users }}"
+
+# El grupo SDA debe existir en el sudoers y tener permisos. Faltaría corregir este script para que cree el grupo si no existe y le de permisos!!

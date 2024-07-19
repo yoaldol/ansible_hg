@@ -1,0 +1,16 @@
+---
+- name: Buscar en archivo
+  hosts: lezama
+  vars:
+    pi: 'picorp'
+  tasks:
+    - name: Buscar en /etc/hosts
+      become: yes  # This is used to run the command with elevated privileges (sudo)
+      shell: grep "{{ pi }}" /etc/hosts
+      register: grep_result  # Save the output of the command for later use
+      ignore_errors: yes
+
+    - name: Mostrar resultado del grep
+      debug:
+        var: grep_result.stdout_lines
+      when: grep_result.stdout_lines | length > 0

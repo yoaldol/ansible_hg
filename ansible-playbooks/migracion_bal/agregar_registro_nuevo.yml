@@ -1,0 +1,51 @@
+---
+- hosts:
+#    localhost
+    app01.wilee.prod.pando.mgmt.sva.antel.com.uy
+    app02.wilee.prod.pando.mgmt.sva.antel.com.uy
+  vars:
+    wilee_api: wilee-api.sva.antel.com.uy
+    wilee_registry: wilee-registry.sva.antel.com.uy
+  tasks:
+
+  - name: Buscar 172.19.0.212 en /etc/hosts
+    become: yes  # This is used to run the command with elevated privileges (sudo)
+    shell: grep 172.19.0.102 /etc/hosts
+    register: grep_result
+
+
+  - name: Quitar {{ wilee_registry }} de  172.19.0.102
+    become: yes
+    shell: |
+      sed -i 's/wilee-registry\.sva\.antel\.com\.uy//' /etc/hosts
+    when: grep_result.rc == 0
+    register: quit_result
+   
+  - name: Agregar registro a VS multiple_prod RADWARE
+    ansible.builtin.lineinfile:
+      path: /etc/hosts
+      regex: '^172.19.0.212 (.*)$'
+      line: '172.19.0.212 \1 {{ wilee_registry }}'
+      backrefs: yes
+    when: quit_result.rc == 0
+
+  - name: Buscar {{  wilee_registry }} en /etc/hosts
+    become: yes  # This is used to run the command with elevated privileges (sudo)
+    shell: grep "{{ wilee_registry }}" /etc/hosts
+    register: grep_result  # Save the output of the command for later use
+    ignore_errors: yes
+
+  - name: Mostrar resultado del grep
+    debug:
+      var: grep_result.stdout_lines
+    when: grep_result.stdout_lines | length > 0
+  
+  - name: Ping a {{ wilee_registry  }}
+    become: yes
+    shell: |
+      ping -c 2 "{{ wilee_registry }}"
+    register: ping_result
+
+  - name: Mostrar resultados del ping
+    debug:
+      var: ping_result.stdout_lines  

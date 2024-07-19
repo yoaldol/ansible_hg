@@ -1,0 +1,20 @@
+---
+- name: Buscar en archivo
+  hosts: pando
+  vars:
+    evergent: 'evergent-connect.sva.antel.com.uy\|evergent-connect-ws.sva.antel.com.uy'
+    wilee: 'wilee-kafka.sva.antel.com.uy\|wilee-registry.sva.antel.com.uy\|wilee-dashboard.sva.antel.com.uy\|wilee-api.sva.antel.com.uy\|wilee-control.sva.antel.com.uy\|wilee-documentation.sva.antel.com.uy' 
+    cds: 'cds.vera.com.uy\|cds-core.vera.com.uy\|cds-webexample01.vera.com.uy\|cds-seguimiento.vera.com.uy\|api-autorizador.svapan.antel.com.uy\|autorizador.svapan.antel.com.uy\|autorizador2.svapan.antel.com.uy\|veratv-control.vera.com.uy\|api-restricciones.sva.antel.com.uy\|cds-assets.sva.antel.com.uy\|cds-assets.svapan.antel.com.uy'
+    cds2: 'cableplay\|elon-admin\|checkpoint\|config-frontend.vera.com.uy\|miantel-config-frontends.svapan.antel.com.uy\|miantel-config-frontends.sva.antel.com.uy\|otpapi\user-enrichment'
+    amp: 'gmetadata\|api-amp\|gprov'
+  tasks:
+    - name: Buscar en /etc/hosts
+      become: yes  # This is used to run the command with elevated privileges (sudo)
+      shell: grep "{{ amp }}" /etc/hosts
+      register: grep_result  # Save the output of the command for later use
+      ignore_errors: yes
+
+    - name: Mostrar resultado del grep
+      debug:
+        var: grep_result.stdout_lines
+      when: grep_result.stdout_lines | length > 0

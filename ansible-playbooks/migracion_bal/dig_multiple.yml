@@ -1,0 +1,85 @@
+---
+- name: Ejecutar dig multiple
+  hosts: localhost
+  vars:
+    evergent: evergent-connect.sva.antel.com.uy
+    evergent_ws: evergent-connect-ws.sva.antel.com.uy
+    wilee_kafka: wilee-kafka.sva.antel.com.uy
+    wilee_registry: wilee-registry.sva.antel.com.uy
+    wilee_dashboard: wilee-dashboard.sva.antel.com.uy
+    wilee_api: wilee-api.sva.antel.com.uy
+    wilee_control: wilee-control.sva.antel.com.uy
+    wilee_documentation: wilee-documentation.sva.antel.com.uy
+  tasks:
+
+    - name: dig {{ evergent }}
+      shell: |
+        dig {{ evergent }}
+      register: dig_evergent_result
+
+    - name: dig {{ evergent_ws }}
+      shell: |
+        dig {{ evergent_ws }}
+      register: dig_evergent_ws_result
+
+    - name: dig {{ evergent_ws }}
+      shell: |
+        dig {{ wilee_kafka }}
+      register: dig_wilee_kafka_result
+
+    - name: dig {{ wilee_registry }}
+      shell: |
+        dig {{ wilee_registry }}
+      register: dig_wilee_registry_result
+
+    - name: dig {{ wilee_dashboard }}
+      shell: |
+        dig {{ wilee_dashboard }}
+      register: dig_wilee_dashboard_result
+
+    - name: dig {{ wilee_api }}
+      shell: |
+        dig {{ wilee_api }}
+      register: dig_wilee_api_result
+
+    - name: dig {{ wilee_control }}
+      shell: |
+        dig {{ wilee_control }}
+      register: dig_wilee_control_result
+
+    - name: dig {{ wilee_documentation }}
+      shell: |
+        dig {{ wilee_documentation }}
+      register: dig_wilee_documentation_result
+
+    - name: Mostrar resultados de dig a {{ evergent }}
+      debug:
+        var: dig_evergent_result.stdout_lines   
+
+    - name: Mostrar resultados de dig a {{ evergent_ws }}
+      debug:
+        var: dig_evergent_ws_result.stdout_lines
+
+    - name: Mostrar resultados de dig a {{ wilee_kafka }}
+      debug:
+        var: dig_wilee_kafka_result.stdout_lines
+
+    - name: Mostrar resultados de dig a {{ wilee_registry }}
+      debug:
+        var: dig_wilee_registry_result.stdout_lines
+
+    - name: Mostrar resultados de dig a {{ wilee_dashboard }}
+      debug:
+        var: dig_wilee_dashboard_result.stdout_lines
+
+    - name: Mostrar resultados de dig a {{ wilee_api }}
+      debug:
+        var: dig_wilee_api_result.stdout_lines
+
+    - name: Mostrar resultados de dig a {{ wilee_control }}
+      debug:
+        var: dig_wilee_control_result.stdout_lines
+
+    - name: Mostrar resultados de dig a {{ wilee_documentation }}
+      debug:
+        var: dig_wilee_documentation_result.stdout_lines

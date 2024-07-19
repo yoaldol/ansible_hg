@@ -1,0 +1,37 @@
+---
+- name: Ejecutar curl gmetadata
+  hosts:
+    amp_prod
+  vars:
+    gmetadata: gmetadata.svapan.antel.com.uy
+  tasks:
+
+    - name: Ping a {{ gmetadata  }}
+      become: yes
+      shell: |
+        ping -c 2 "{{ gmetadata }}"
+      register: ping_result
+
+    - name: Mostrar resultados del ping a {{ gmetadata  }}
+      debug:
+        var: ping_result.stdout_lines  
+
+    - name: Ejecutar curl http://{{ gmetadata }}/api/status
+      command: "curl http://{{ gmetadata }}/api/status"
+      register: curl_http_gmetadata_status_output
+
+    - name: Mostrar resultado de  curl a http://{{ gmetadata }}/api/status
+      debug:
+        var: curl_http_gmetadata_status_output.stdout_lines | join("")
+      vars:
+        ansible_python_interpreter: "/usr/bin/python3"
+    
+    - name: Ejecutar curl https://{{ gmetadata }}/api/status
+      command: "curl https://{{ gmetadata }}/api/status"
+      register: curl_https_gmetadata_status_output
+
+    - name: Mostrar resultado de  curl a https://{{ gmetadata }}/api/status
+      debug:
+        var: curl_https_gmetadata_status_output.stdout_lines | join("")
+      vars:
+        ansible_python_interpreter: "/usr/bin/python3"

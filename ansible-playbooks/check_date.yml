@@ -1,0 +1,14 @@
+---
+- name: Check_date
+  hosts:
+    lezama
+    #pando
+  become: true
+  gather_facts: no
+  tasks:
+  - name: Get current system time
+    command: date "+%Y-%m-%d %H:%M:%S"
+    register: current_time
+  - name: Print current system time
+    debug:
+      msg: "Current time on {{ inventory_hostname }} is {{ current_time.stdout }}"

@@ -1,0 +1,335 @@
+---
+- name: Ejecutar curl multiple
+  hosts:
+#    localhost
+#    stp01.pando.mgmt.sva.antel.com.uy
+#    zabbix.pando.mgmt.sva.antel.com.uy
+#    cds_seguimiento_prod
+#    cds_portal_prod
+#    webexample01.cds.prod.pando.mgmt.sva.antel.com.uy
+#    cds_core_prod
+#    cds_frontend_prod
+    app01.wilee.prod.pando.mgmt.sva.antel.com.uy
+    app02.wilee.prod.pando.mgmt.sva.antel.com.uy
+  vars:
+    evergent: evergent-connect.sva.antel.com.uy
+    evergent_ws: evergent-connect-ws.sva.antel.com.uy
+    wilee_kafka: wilee-kafka.sva.antel.com.uy
+    wilee_registry: wilee-registry.sva.antel.com.uy
+    wilee_dashboard: wilee-dashboard.sva.antel.com.uy
+    wilee_api: wilee-api.sva.antel.com.uy
+    wilee_control: wilee-control.sva.antel.com.uy
+    wilee_documentation: wilee-documentation.sva.antel.com.uy
+  tasks:
+
+    - name: Ejecutar curl http://{{ evergent }}/status
+      command: "curl http://{{ evergent }}/status"
+      register: curl_http_evergent_status_output
+      when: false
+
+    - name: Ejecutar curl http://{{ evergent }}/actuator
+      command: "curl http://{{ evergent }}/actuator -I"
+      register: curl_http_evergent_actuator_output
+      when: false
+
+    - name: Ejecutar curl https://{{ evergent }}/status
+      command: "curl https://{{ evergent }}/status"
+      register: curl_https_evergent_status_output
+      when: false
+
+    - name: Ejecutar curl https://{{ evergent }}/actuator
+      command: "curl http://{{ evergent }}/actuator -I"
+      register: curl_https_evergent_actuator_output
+      when: false
+
+    - name: Ejecutar curl http://{{ evergent_ws }}/status
+      command: "curl http://{{ evergent_ws }}/status"
+      register: curl_http_evergent_ws_status_output
+      when: false
+
+    - name: Ejecutar curl http://{{ evergent_ws }}/actuator
+      command: "curl http://{{ evergent_ws }}/actuator -I"
+      register: curl_http_evergent_ws_actuator_output
+      when: false
+
+    - name: Ejecutar curl https://{{ evergent_ws }}/status
+      command: "curl https://{{ evergent_ws }}/status"
+      register: curl_https_evergent_ws_status_output
+      when: false
+
+    - name: Ejecutar curl https://{{ evergent_ws }}/actuator
+      command: "curl https://{{ evergent_ws }}/actuator -I"
+      register: curl_https_evergent_ws_actuator_output
+      when: false
+
+    - name: Ejecutar curl http://{{ wilee_kafka }}
+      command: "curl -u adminantel:4dm1n4nt3l http://{{ wilee_kafka }} -I"
+      register: curl_http_wilee_kafka_output
+      when: false
+
+    - name: Ejecutar curl https://{{ wilee_kafka }}
+      command: "curl -u adminantel:4dm1n4nt3l https://{{ wilee_kafka }} -I"
+      register: curl_https_wilee_kafka_output
+      when: false
+
+    - name: Ejecutar curl http://{{ wilee_registry }}
+      command: "curl -u adminantel:4dm1n4nt3l http://{{ wilee_registry }} -I"
+      register: curl_http_wilee_registry_output
+#      when: false
+
+    - name: Ejecutar curl http://{{ wilee_registry }}/actuator
+      command: "curl -u adminantel:4dm1n4nt3l http://{{ wilee_registry }}/actuator -I"
+      register: curl_http_wilee_registry_actuator_output
+      when: false
+
+    - name: Ejecutar curl https://{{ wilee_registry }}
+      command: "curl -u adminantel:4dm1n4nt3l https://{{ wilee_registry }} -I"
+      register: curl_https_wilee_registry_output
+#      when: false
+
+    - name: Ejecutar curl https://{{ wilee_registry }}/actuator
+      command: "curl -u adminantel:4dm1n4nt3l https://{{ wilee_registry }}/actuator -I"
+      register: curl_https_wilee_registry_actuator_output
+      when: false
+
+    - name: Ejecutar curl http://{{ wilee_dashboard }}
+      command: "curl -u adminantel:4dm1n4nt3l http://{{ wilee_dashboard }} -I"
+      register: curl_http_wilee_dashboard_output
+      when: false
+
+    - name: Ejecutar curl http://{{ wilee_dashboard }}/actuator
+      command: "curl -u adminantel:4dm1n4nt3l http://{{ wilee_dashboard }}/actuator -I"
+      register: curl_http_wilee_dashboard_actuator_output
+      when: false
+
+    - name: Ejecutar curl https://{{ wilee_dashboard }}
+      command: "curl -u adminantel:4dm1n4nt3l https://{{ wilee_dashboard }} -I"
+      register: curl_https_wilee_dashboard_output
+      when: false
+
+    - name: Ejecutar curl https://{{ wilee_dashboard }}/actuator
+      command: "curl -u adminantel:4dm1n4nt3l https://{{ wilee_dashboard }}/actuator -I"
+      register: curl_https_wilee_dashboard_actuator_output
+      when: false
+
+    - name: Ejecutar curl http://{{ wilee_api }}/status
+      command: "curl http://{{ wilee_api }}/status"
+      register: curl_http_wilee_api_status_output
+#      when: false
+
+    - name: Ejecutar curl http://{{ wilee_api }}/actuator
+      command: "curl http://{{ wilee_api }}/actuator -I"
+      register: curl_http_wilee_api_actuator_output
+      when: false
+
+    - name: Ejecutar curl https://{{ wilee_api }}/status
+      command: "curl https://{{ wilee_api }}/status"
+      register: curl_https_wilee_api_status_output
+#      when: false
+
+    - name: Ejecutar curl https://{{ wilee_api }}/actuator
+      command: "curl https://{{ wilee_api }}/actuator -I"
+      register: curl_https_wilee_api_actuator_output
+      when: false
+
+    - name: Ejecutar curl http://{{ wilee_control }}
+      command: "curl http://{{ wilee_control }} -I"
+      register: curl_http_wilee_control_output
+      when: false
+
+    - name: Ejecutar curl http://{{ wilee_control }}/actuator
+      command: "curl http://{{ wilee_control }}/actuator -I"
+      register: curl_http_wilee_control_actuator_output
+      when: false
+
+    - name: Ejecutar curl https://{{ wilee_control }}
+      command: "curl https://{{ wilee_control }} -I"
+      register: curl_https_wilee_control_output
+      when: false
+
+    - name: Ejecutar curl https://{{ wilee_control }}/actuator
+      command: "curl https://{{ wilee_control }}/actuator -I"
+      register: curl_https_wilee_control_actuator_output
+      when: false
+
+    - name: Ejecutar curl http://{{ wilee_documentation }}
+      command: "curl http://{{ wilee_documentation }} -I"
+      register: curl_http_wilee_documentation_output
+      when: false
+
+    - name: Ejecutar curl http://{{ wilee_documentation }}/actuator
+      command: "curl http://{{ wilee_documentation }}/actuator -I"
+      register: curl_http_wilee_documentation_actuator_output
+      when: false
+
+    - name: Ejecutar curl https://{{ wilee_documentation }}
+      command: "curl https://{{ wilee_documentation }} -I"
+      register: curl_https_wilee_documentation_output
+      when: false
+
+    - name: Ejecutar curl https://{{ wilee_documentation }}/actuator
+      command: "curl https://{{ wilee_documentation }}/actuator -I"
+      register: curl_https_wilee_control_documentation_output
+      when: false
+
+    - name: Mostrar resultado de  curl a http://{{ evergent }}/status
+      debug:
+        var: curl_http_evergent_status_output.stdout_lines | join("")
+      vars:
+        ansible_python_interpreter: "/usr/bin/python3"
+      when: false
+
+    - name: Mostrar resultado de  curl a http://{{ evergent }}/actuator
+      debug:
+        var: curl_http_evergent_actuator_output.stdout_lines
+      when: false
+
+    - name: Mostrar resultado de  curl a https://{{ evergent }}/status
+      debug:
+        var: curl_https_evergent_status_output.stdout_lines | join("")
+      vars:
+        ansible_python_interpreter: "/usr/bin/python3"
+      when: false
+
+    - name: Mostrar resultado de  curl a https://{{ evergent }}/actuator
+      debug:
+        var: curl_https_evergent_actuator_output.stdout_lines
+      when: false
+
+    - name: Mostrar resultado de  curl a http://{{ evergent_ws }}/status
+      debug:
+        var: curl_http_evergent_ws_status_output.stdout_lines | join("")
+      vars:
+        ansible_python_interpreter: "/usr/bin/python3"
+      when: false
+
+    - name: Mostrar resultado de  curl a http://{{ evergent_ws }}/actuator
+      debug:
+        var: curl_http_evergent_ws_actuator_output.stdout_lines
+      when: false
+
+    - name: Mostrar resultado de  curl a https://{{ evergent_ws }}/status
+      debug:
+        var: curl_https_evergent_ws_status_output.stdout_lines | join("")
+      vars:
+        ansible_python_interpreter: "/usr/bin/python3"
+      when: false
+
+    - name: Mostrar resultado de  curl a https://{{ evergent_ws }}/actuator
+      debug:
+        var: curl_https_evergent_ws_actuator_output.stdout_lines
+      when: false
+
+    - name: Mostrar resultado de  curl a http://{{ wilee_kafka }}
+      debug:
+        var: curl_http_wilee_kafka_output.stdout_lines
+      when: false
+
+    - name: Mostrar resultado de  curl a https://{{ wilee_kafka }}
+      debug:
+        var: curl_https_wilee_kafka_output.stdout_lines
+      when: false
+
+    - name: Mostrar resultado de  curl a http://{{ wilee_registry }}
+      debug:
+        var: curl_http_wilee_registry_output.stdout_lines
+#      when: false
+
+    - name: Mostrar resultado de  curl a http://{{ wilee_registry }}/actuator
+      debug:
+        var: curl_http_wilee_registry_actuator_output.stdout_lines
+      when: false
+
+    - name: Mostrar resultado de  curl a https://{{ wilee_registry }}
+      debug:
+        var: curl_https_wilee_registry_output.stdout_lines
+#      when: false
+
+    - name: Mostrar resultado de  curl a https://{{ wilee_registry }}/actuator
+      debug:
+        var: curl_https_wilee_registry_actuator_output.stdout_lines
+      when: false
+
+    - name: Mostrar resultado de  curl a http://{{ wilee_dashboard }}
+      debug:
+        var: curl_http_wilee_dashboard_output.stdout_lines
+      when: false
+
+    - name: Mostrar resultado de  curl a http://{{ wilee_dashboard }}/actuator
+      debug:
+        var: curl_http_wilee_dashboard_actuator_output.stdout_lines
+      when: false
+
+    - name: Mostrar resultado de  curl a https://{{ wilee_dashboard }}
+      debug:
+        var: curl_https_wilee_dashboard_output.stdout_lines
+      when: false
+
+    - name: Mostrar resultado de  curl a https://{{ wilee_dashboard }}/actuator
+      debug:
+        var: curl_https_wilee_dashboard_actuator_output.stdout_lines
+      when: false
+
+    - name: Mostrar resultado de  curl a http://{{ wilee_api }}/status
+      debug:
+        var: curl_http_wilee_api_status_output.stdout_lines | join("")
+      vars:
+        ansible_python_interpreter: "/usr/bin/python3"
+#      when: false
+
+    - name: Mostrar resultado de  curl a http://{{ wilee_api }}/actuator
+      debug:
+        var: curl_http_wilee_api_actuator_output.stdout_lines
+      when: false
+
+    - name: Mostrar resultado de  curl a https://{{ wilee_api }}/status
+      debug:
+        var: curl_https_wilee_api_status_output.stdout_lines | join("")
+      vars:
+        ansible_python_interpreter: "/usr/bin/python3"
+#      when: false
+
+    - name: Mostrar resultado de  curl a https://{{ wilee_api }}/actuator
+      debug:
+        var: curl_https_wilee_api_actuator_output.stdout_lines
+      when: false
+
+    - name: Mostrar resultado de  curl a http://{{ wilee_control }}
+      debug:
+        var: curl_http_wilee_control_output.stdout_lines 
+      when: false
+
+    - name: Mostrar resultado de  curl a http://{{ wilee_control }}/actuator
+      debug:
+        var: curl_http_wilee_control_actuator_output.stdout_lines
+      when: false
+
+    - name: Mostrar resultado de  curl a https://{{ wilee_control }}
+      debug:
+        var: curl_https_wilee_control_output.stdout_lines
+      when: false
+
+    - name: Mostrar resultado de  curl a https://{{ wilee_control }}/actuator
+      debug:
+        var: curl_https_wilee_control_actuator_output.stdout_lines
+      when: false
+
+    - name: Mostrar resultado de  curl a http://{{ wilee_documentation }}
+      debug:
+        var: curl_http_wilee_documentation_output.stdout_lines 
+      when: false
+
+    - name: Mostrar resultado de  curl a http://{{ wilee_documentation }}/actuator
+      debug:
+        var: curl_http_wilee_documentation_actuator_output.stdout_lines
+      when: false
+
+    - name: Mostrar resultado de  curl a https://{{ wilee_documentation }}
+      debug:
+        var: curl_https_wilee_documentation_output.stdout_lines
+      when: false
+
+    - name: Mostrar resultado de  curl a https://{{ wilee_documentation }}/actuator
+      debug:
+        var: curl_https_wilee_control_documentation_output.stdout_lines
+      when: false

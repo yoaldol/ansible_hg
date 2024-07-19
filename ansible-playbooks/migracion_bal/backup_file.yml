@@ -1,0 +1,31 @@
+---
+- name: Generar archivo de backup
+  hosts:
+    #centos
+    stp01.pando.mgmt.sva.antel.com.uy
+    zabbix.pando.mgmt.sva.antel.com.uy
+    restricciones_prod
+    cds_seguimiento_prod
+    cds_portal_prod
+    webexample01.cds.prod.pando.mgmt.sva.antel.com.uy
+    cds_core_prod
+    cds_frontend_prod
+    app01.wilee.prod.pando.mgmt.sva.antel.com.uy
+    app02.wilee.prod.pando.mgmt.sva.antel.com.uy 
+  gather_facts: true
+  tasks:
+    - name: Crear copia de archivo /etc/hosts
+      copy:
+        src: /etc/hosts # Ruta del archivo original
+        dest: /etc/hosts.backup20240304  # Ruta de la copia de seguridad
+        remote_src: yes
+
+    - name: Obtener información sobre el archivo
+      stat:
+        path: /etc/hosts.backup20240304
+      register: archivo_info
+
+    - name: Mostrar resultado sobre el archivo
+      debug:
+        var: archivo_info.stat.exists
+

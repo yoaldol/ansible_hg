@@ -1,0 +1,59 @@
+## Playbook que permite quitar registro de una ip en archivo /etc/hosts y agregarlo en otra.
+## La tarea Buscar en /etc/hosts se definio a mano, en caso de buscar nuevos items de debe modificar.
+---
+- hosts:
+    #centos #conjunto de vms para pruebas en virtualbox
+    #ansible-virtualbox #vm para prueba en virtualbox
+    #centos1-virtualbox #vm para prueba en virtualbox
+    #centos2-virtualbox #vm para prueba en virtualbox
+    #stp01.pando.mgmt.sva.antel.com.uy
+    #zabbix.pando.mgmt.sva.antel.com.uy
+    #restricciones_prod
+    #cds_seguimiento_prod
+    #webexample01.cds.prod.pando.mgmt.sva.antel.com.uy
+    #cds_frontend_prod
+    #app01.wilee.prod.pando.mgmt.sva.antel.com.uy
+    #app02.wilee.prod.pando.mgmt.sva.antel.com.uy
+    #cds_core_prod
+    cds_portal_prod
+  vars:
+    alteon:
+      #- cds-seguimiento.vera.com.uy
+      - cds.vera.com.uy
+      - cds-core.vera.com.uy
+      - cds-webexample01.vera.com.uy
+      - api-restricciones.sva.antel.com.uy
+  tasks:
+
+  - name: Buscar 172.19.0.211  en /etc/hosts
+    become: yes
+    shell: grep 172.19.0.211 /etc/hosts
+    register: grep_result
+
+  - name: Quitar cds de 172.19.0.102
+    become: yes
+    shell: |
+      sed -i 's/{{ item }}//' /etc/hosts
+    when: grep_result.rc == 0
+    with_items:
+      - "{{ alteon }}"
+    register: quit_result
+
+  - name: Agregar registro a VS vera_prod RADWARE
+    ansible.builtin.lineinfile:
+      path: /etc/hosts
+      regex: '^172.19.0.211 (.*)$'
+      line: '172.19.0.211 \1 {{ item }}'
+      backrefs: yes
+    with_items:
+      - "{{ alteon }}"
+
+  - name: Buscar en /etc/hosts
+    become: yes
+    shell: grep 'cds.vera.com.uy\|cds-core.vera.com.uy\|cds-webexample01.vera.com.uy\|cds-seguimiento.vera.com.uy\|api-restricciones.sva.antel.com.uy' /etc/hosts
+    register: grep_result
+    ignore_errors: yes
+
+  - name: Mostrar resultado del grep
+    debug:
+      var: grep_result.stdout_lines

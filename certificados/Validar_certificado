@@ -1,0 +1,17 @@
+Verificar que la key corresponde con el crt
+
+openssl x509 -noout -modulus -in anteltv.com.uy.crt | openssl md5 ; openssl rsa -noout -modulus -in anteltv.com.uy.key | openssl md5 
+MD5(stdin)= c4b6a5cd563aa16dd59ec433a748322b
+MD5(stdin)= c4b6a5cd563aa16dd59ec433a748322b
+
+con eso podes verificar que el crt que te pasó se corresponde con la key que le pasaste vos
+
+verificacion del crt con el intermedio y el root:
+
+openssl verify -verbose -CAfile <(cat GeoTrustRSACA2018-intermediate.crt.pem DigiCertGlobalRootCA.crt.pem) aster.vera.com.uy.crt
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------
+

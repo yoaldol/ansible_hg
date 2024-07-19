@@ -1,0 +1,30 @@
+---
+- name: Chequeo conectividad a Virtual Server Multiple_prod
+  hosts:
+    cds_core_prod
+    amp_prod
+  become: true
+  tasks:
+    - name: Chequeo de conectividad puerto 443
+      wait_for:
+        host: 172.19.0.212
+        port: 443
+        timeout: 5
+      register: result_wait_for_port_443
+
+    - name: Mostrar resultados de telnet
+      debug:
+        var: result_wait_for_port_443
+
+    - name: Chequeo de conectividad por puerto 80
+      wait_for:
+        host: 172.19.0.212
+        port: 80
+        timeout: 5
+      register: result_wait_for_port_80
+
+    - name: Mostrar resultados de telnet por puerto 80
+      debug:
+        var: result_wait_for_port_80
+
+

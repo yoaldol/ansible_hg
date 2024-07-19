@@ -1,0 +1,63 @@
+---
+- name: Remplazar string usando sed
+  hosts:
+    stp01.pando.mgmt.sva.antel.com.uy
+    zabbix.pando.mgmt.sva.antel.com.uy
+    cds_seguimiento_prod
+    cds_portal_prod
+    webexample01.cds.prod.pando.mgmt.sva.antel.com.uy
+    cds_core_prod
+    cds_frontend_prod
+    app01.wilee.prod.pando.mgmt.sva.antel.com.uy
+    app02.wilee.prod.pando.mgmt.sva.antel.com.uy
+  tasks:
+    - name: Quitar evergent-connect de  172.19.0.102
+      become: yes
+      shell: |
+        sed -i 's/evergent-connect\.sva\.antel\.com\.uy //g' /etc/hosts
+      register: command1_output
+   
+    - name: Quitar evergent-connect-ws de  172.19.0.102
+      become: yes
+      shell: |
+        sed -i 's/evergent-connect-ws\.sva\.antel\.com\.uy//' /etc/hosts
+      when: command1_output.rc == 0
+
+    - name: Agregar evergent-connect al final del archivo
+      lineinfile:
+        path: /etc/hostsQuitar evergent-connect-ws de  172.19.0.102
+      become: yes
+      she
+        line: "172.19.0.212 evergent-connect.sva.antel.com.uy evergent-connect-ws.sva.antel.com.uy"
+        insertafter: EOF
+        regexp: '^172\.19\.0\.212'
+ 
+    - name: Buscar evergent-connect.sva.antel.com.uy y evergent-connect-ws.sva.antel.com.uy en /etc/hosts
+      become: yes
+      shell: grep 'evergent-connect.sva.antel.com.uy\|evergent-connect-ws.sva.antel.com.uy' /etc/hosts
+      register: grep_result
+ 
+    - name: Mostrar resultado del grep
+      debug:
+        var: grep_result.stdout_lines
+
+    - name: Ping a evergent-connect.sva.antel.com.uy
+      become: yes
+      shell: |
+        ping -c 2 evergent-connect.sva.antel.com.uy
+      register: ping1_result
+
+    - name: Ping a evergent-connect-ws.sva.antel.com.uy
+      become: yes
+      shell: |
+        ping -c 2 evergent-connect-ws.sva.antel.com.uy
+      register: ping2_result
+
+    - name: Mostrar resultados del ping
+      debug:
+        var: ping1_result.stdout_lines
+
+    - name: Mostrar resultados del ping
+      debug:
+        var: ping2_result.stdout_lines
+

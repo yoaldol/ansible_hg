@@ -1,0 +1,109 @@
+users:
+  ### AntelOps ###
+  - test_ansible
+  #- ecarranza
+  #- favas
+  #- pplaninich
+  #- eferreira
+  #- dlabruna
+  #- tgonzalez
+  #- jbeneiros
+  #- sedye
+  #- techeverria
+  #- ylopez
+    
+  ### SDA ###
+  #- aaguirre
+  #- pgandini
+  #- aalbuerne
+  #- colivera
+  #- dtomas
+  #- etapiero 
+  #- gbatalla
+  #- gperbolianachis
+  #- gpirez
+  #- jenkins_sda
+  #- mibarburu
+  #- pgarbusi
+    
+  ### Desarrollo Mobile ###
+  #- dbusca
+  #- nrodriguez
+  #- nvazquez
+    
+  ### TICKANTEL DESA ###
+  #- aachkar
+  #- cburgos
+  #- dgutierrez
+  #- galcarraz
+  #- gpirez
+  #- mcalcagno
+  #- mdelossantos
+  #- mgoncalvez
+  #- mtrigo
+  #- ssacco
+  #- zfernandez
+    
+  ### INFRA ###
+  #- asjekavica
+  #- ebonetto
+  #- fsouto
+  #- gairaldi
+  #- lscappa
+  #- mperrone
+    
+  ### KNOWHOW ###
+  #- acristiani
+  #- afranco
+  #- aleiras
+  #- asanabria
+  #- asuarez
+  #- clorenzo
+  #- dcastera
+  #- dcardero
+  #- esuarez
+  #- erodriguez
+  #- fdumont
+  #- fnozar
+  #- igastelumendi
+  #- jgodoy
+  #- jpdirienzo
+  #- kh
+  #- mgastelumendi
+  #- nisnardi
+  #- pfonsalias
+  #- promero
+  #- rgarrone
+  #- rsanchez
+  #- vviera
+  #- yugarte
+    
+  ### SEGURIDAD ###
+  #- astrocchia
+  #- bolivera
+  #- dalvez
+  #- dsabella
+  #- esalazar 
+  #- jchavarri
+  #- mcabrera
+    
+  ### OTROS HG ###
+  #- efigueroa
+  #- desa-epagos
+  
+  ### Antel ###
+  #- aandruskevicius
+  #- gortega
+  #- msosa
+  #- pds
+  #- sti
+   
+  ### Netlab otros ###
+  #- acaputto
+  #- agaona
+  #- cmenghi
+  #- ibaldo
+  #- hsoto
+  #- lsaracho
+  #- nrotunno
+  #- rsantomauro

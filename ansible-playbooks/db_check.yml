@@ -1,0 +1,29 @@
+---
+- name: DB_check
+  hosts:
+    frontend01-deb11.cds.prod.pando.mgmt.sva.antel.com.uy
+    #frontend02-deb11.cds.prod.pando.mgmt.sva.antel.com.uy
+    #frontend03-deb11.cds.prod.pando.mgmt.sva.antel.com.uy
+
+  tasks:
+  - name: copy db_check.sh script
+    ansible.builtin.copy:
+      src: ./Files/db_check.sh
+      dest: /etc/zabbix/zabbix_custom_scripts/db_check.sh
+      owner: root
+      group: root
+      mode: '755'
+      force: false
+  - name: copy userparameter_db_check.conf file
+    ansible.builtin.copy:
+      src: ./Files/userparameter_db_check.conf
+      dest: /etc/zabbix/zabbix_agentd.d/userparameter_db_check.conf
+      owner: root
+      group: root
+      mode: '755'
+      force: false
+  - name: restart zabbix agent
+    ansible.builtin.service:
+      name: zabbix-agent
+      state: restarted
+

@@ -1,0 +1,23 @@
+all:
+  hosts:
+    fs01.asset.prod.mgmt.sva.antel.com.uy:
+    fs02.asset.prod.mgmt.sva.antel.com.uy:
+    fs03.asset.prod.mgmt.sva.antel.com.uy:
+    fs04.asset.prod.mgmt.sva.antel.com.uy:
+    app01.gestcorreo.prod.mgmt.sva.antel.com.uy:
+    app02.gestcorreo.prod.mgmt.sva.antel.com.uy:
+    app01.iptocountry.prod.mgmt.sva.antel.com.uy:
+    app02.iptocountry.prod.mgmt.sva.antel.com.uy:
+    app03.iptocountry.prod.mgmt.sva.antel.com.uy:
+    app04.iptocountry.prod.mgmt.sva.antel.com.uy:
+    app05.iptocountry.prod.mgmt.sva.antel.com.uy:
+    app06.iptocountry.prod.mgmt.sva.antel.com.uy:
+    app01.scxca.prod.mgmt.sva.antel.com.uy:
+    app02.scxca.prod.mgmt.sva.antel.com.uy:
+    bkp02.stpva.prod.mgmt.sva.antel.com.uy:
+    bkp03.stpva.prod.mgmt.sva.antel.com.uy:
+    elk01.stpva.prod.mgmt.sva.antel.com.uy:
+    logs01.stpva.prod.mgmt.sva.antel.com.uy:
+    ocs01.stpva.prod.mgmt.sva.antel.com.uy:
+    openvpn.stpva.prod.mgmt.sva.antel.com.uy:
+    repo01.stpva.prod.mgmt.sva.antel.com.uy:

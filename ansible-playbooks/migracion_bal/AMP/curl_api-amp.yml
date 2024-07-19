@@ -1,0 +1,26 @@
+---
+- name: Ejecutar curl api-amp
+  hosts:
+    amp_prod
+    cds_core_prod
+  vars:
+    api_amp: api-amp.svapan.antel.com.uy
+  tasks:
+    - name: Ping a {{ api_amp  }}
+      shell: |
+        ping -c 2 "{{ api_amp }}"
+      register: ping_result
+
+    - name: Mostrar resultados del ping a {{ api_amp  }}
+      debug:
+        var: ping_result.stdout_lines  
+
+    - name: Ejecutar curl http://{{ api_amp }}/status
+      command: "curl http://{{ api_amp }}/status"
+      register: curl_http_api_amp_status_output
+
+    - name: Mostrar resultado de  curl a http://{{ api_amp }}/status
+      debug:
+        var: curl_http_api_amp_status_output.stdout_lines | join("")
+      vars:
+        ansible_python_interpreter: "/usr/bin/python3"

@@ -1,0 +1,34 @@
+# INVENTARIO DE SEVIDORES DE DATACENTER NDC
+# =========================================
+#
+# Directrices para mantener el orden del inventario:
+# - formato yaml
+# - servicios ordenados alfabeticamente
+# - todos los servicios deben tener al menos 1 ambiente con excepción de STP
+# - ambientes ordenados por orden de despliegue (ej.: desa->test->prep->prod)
+# - hosts ordenados alfabeticamente
+# - cuanto se actualice agregar en el commit comentario de lo que se agregó
+#
+
+ndc:
+  children:
+    stp:
+      hosts:
+        ndc-bacula:
+        ndc-kibana:
+    amp:
+      hosts:
+        gestor1:
+        gestor2:
+        gestor3:
+        gestor4:
+        gestor5:
+        gestor6:
+    tvfe:
+      hosts:
+        tvfe[4:5]:
+        tvfe8:
+        tvfe[11:12]:
+        tvfe[14:17]:
+        tvfe[23:31]:
+        tvfe36:
