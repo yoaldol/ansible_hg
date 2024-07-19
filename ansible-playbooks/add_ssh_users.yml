@@ -28,19 +28,19 @@
       with_items:
       - "{{ users }}"
 
-    - name: "Add authorized keys"
-      ansible.posix.authorized_key:
-        user: "{{ item }}"
-        key: "{{ lookup('file', './inventories/user_public_keys/id_rsa_'+ item + '.pub')}}"
-      with_items: "{{ users }}"
+    #- name: "Add authorized keys"
+    #  ansible.posix.authorized_key:
+    #    user: "{{ item }}"
+    #    key: "{{ lookup('file', './inventories/user_public_keys/id_rsa_'+ item + '.pub')}}"
+    #  with_items: "{{ users }}"
     
-    #- name: Ensure encrypted .pub file is present
-    #  copy:
-    #    src: ./inventories/user_public_keys/id_rsa_'+ item + '.pub  # Ruta local del archivo .pub encriptado
-    #    dest: /home/{{ item }}/.ssh/id_rsa_'+ item + '.pub  # Ruta en el host remoto donde deseas copiar el archivo
-    #    mode: '0600'  # Asegúrate de configurar los permisos adecuadamente si es necesario
-    #  vars:
-     #   vault_password: "{{ lookup('env', 'pub_password') }}"  # Obtén la contraseña de Ansible Vault desde una variable de entorno
+    - name: Ensure encrypted .pub file is present
+      copy:
+        src: ./ansible_hg/ansible-playbooks/inventories/user_public_keys/id_rsa_'+ item + '.pub  # Ruta local del archivo .pub encriptado
+        dest: /home/{{ item }}/.ssh/id_rsa_'+ item + '.pub  # Ruta en el host remoto donde deseas copiar el archivo
+        mode: '0600'  # Asegúrate de configurar los permisos adecuadamente si es necesario
+      vars:
+        vault_password: "{{ lookup('env', 'pub_password') }}"  # Obtén la contraseña de Ansible Vault desde una variable de entorno
 
     - name: Decrypt encrypted .pub file on remote hosts
       ansible.builtin.shell:
