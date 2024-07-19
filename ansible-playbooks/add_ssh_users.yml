@@ -8,7 +8,7 @@
     #wilee_prod
   become: true
   vars_files:
-    - pub_password.yml
+    - pub_password
     - user_list.yml
   gather_facts: true
 
@@ -41,6 +41,8 @@
         mode: '0600'  # Asegúrate de configurar los permisos adecuadamente si es necesario
       vars:
         vault_password: "{{ lookup('env', 'pub_password') }}"  # Obtén la contraseña de Ansible Vault desde una variable de entorno
+      with_items:
+      - "{{ users }}"
 
     - name: Decrypt encrypted .pub file on remote hosts
       ansible.builtin.shell:
@@ -48,6 +50,8 @@
         chmod 600 /home/{{ item }}/.ssh/authorized_keys
       vars:
         vault_password: "{{ lookup('env', 'pub_password') }}"
+      with_items:
+      - "{{ users }}"
       changed_when: false
 
     - name: "Change user shell to bash" 
